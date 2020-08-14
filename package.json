@@ -1,0 +1,17 @@
+{
+  "name": "karthikeyan.sh",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KarthikeyanRanasthala/karthikeyan.sh.git"
+  },
+  "author": "Karthikeyan Ranasthala",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KarthikeyanRanasthala/karthikeyan.sh/issues"
+  },
+  "homepage": "https://github.com/KarthikeyanRanasthala/karthikeyan.sh#readme"
+}
