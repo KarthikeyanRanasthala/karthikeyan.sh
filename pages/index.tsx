@@ -1,13 +1,15 @@
+import Head from 'next/head';
+
+import Introduction from 'src/components/indexPage/Introduction';
+
 const IndexPage: React.FC<IndexPageProps> = () => (
   <>
-    <style jsx>
-      {`
-        .title {
-          @apply text-2xl;
-        }
-      `}
-    </style>
-    <div className="font-bold title">Hello, Next.js!</div>
+    <Head>
+      <title>Karthikeyan Ranasthala</title>
+    </Head>
+    <main className="mx-4 max-w-4xl md:mx-auto md:px-16">
+      <Introduction />
+    </main>
   </>
 );
 
