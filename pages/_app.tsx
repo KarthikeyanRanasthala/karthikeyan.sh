@@ -3,6 +3,7 @@ import { AppProps } from 'next/app';
 import 'src/styles/index.css';
 
 import NavBar from 'src/components/common/NavBar';
+import SocialLinks from 'src/components/common/SocialLinks';
 
 const CustomApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
@@ -18,6 +19,9 @@ const CustomApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         <NavBar />
       </header>
       <Component {...pageProps} />
+      <footer className="max-w-screen-xl flex justify-center md:justify-end items-center my-8 mx-auto">
+        <SocialLinks />
+      </footer>
     </>
   );
 };
