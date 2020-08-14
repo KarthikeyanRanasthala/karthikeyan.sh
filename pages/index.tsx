@@ -1,7 +1,14 @@
 const IndexPage: React.FC<IndexPageProps> = () => (
-  <div>
-    <p>Hello, Next.js!</p>
-  </div>
+  <>
+    <style jsx>
+      {`
+        .title {
+          @apply text-2xl;
+        }
+      `}
+    </style>
+    <div className="font-bold title">Hello, Next.js!</div>
+  </>
 );
 
 export default IndexPage;
