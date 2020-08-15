@@ -1,6 +1,21 @@
 @tailwind base;
 @tailwind components;
 
+/* Scroll Bar Styles | Start */
+
+body::-webkit-scrollbar {
+    width: min(1vw, 8px);
+}
+body::-webkit-scrollbar-track {
+    background-color: #121212;
+}
+body::-webkit-scrollbar-thumb {
+    @apply bg-green-500;
+    @apply rounded-lg;
+}
+  
+/* Scroll Bar Styles | End */
+
 /* Syntax Highlighting Styles | Start */
 
 pre[class*="language-"], code[class*="language-"] {
