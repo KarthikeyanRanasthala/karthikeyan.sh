@@ -1,1 +1,3 @@
-declare type IndexPageProps = unknown;
+declare type IndexPageProps = {
+  posts: PostCardProps[];
+};
