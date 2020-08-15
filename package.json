@@ -8,7 +8,8 @@
     "type-check": "tsc",
     "lint": "eslint .",
     "prettify": "prettier --write **/*.{ts,tsx,json}",
-    "handle-posts": "rimraf dist && ncc build ./scripts/handlePosts.ts && node ./dist/index.js"
+    "handle-posts": "rimraf dist && ncc build ./scripts/handlePosts.ts && node ./dist/index.js",
+    "prebuild": "npm run handle-posts"
   },
   "repository": {
     "type": "git",
