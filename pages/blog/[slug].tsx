@@ -15,6 +15,8 @@ import dayjs from 'dayjs';
 import PostSchema from 'src/models/PostSchema';
 import mongo from 'src/utils/mongo';
 
+import rehypePrism from '@mapbox/rehype-prism';
+
 const BlogPost: React.FC<PostProps> = ({ mdxSource, frontMatter }) => {
   const content = hydrate(mdxSource, {});
   return (
@@ -59,7 +61,13 @@ export const getStaticProps: GetStaticProps = async (
     'utf8'
   );
   const { content, data: frontMatter } = matter(fileContents);
-  const mdxSource = await renderToString(content, {});
+  const mdxSource = await renderToString(
+    content,
+    {},
+    {
+      rehypePlugins: [rehypePrism],
+    }
+  );
 
   return { props: { mdxSource, frontMatter } };
 };

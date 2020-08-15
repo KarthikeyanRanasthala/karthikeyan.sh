@@ -1,3 +1,53 @@
 @tailwind base;
 @tailwind components;
+
+/* Syntax Highlighting Styles | Start */
+
+pre[class*="language-"], code[class*="language-"] {
+    background-color: #141622;
+    color: #eff0eb;
+}
+
+pre[class*="language-"] {
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 0.5rem;
+    overflow: auto;
+}
+
+.token.boolean, .token.constant {
+    color: #b76aff;
+}
+
+.token.template-string, .token.operator {
+    color: #ff6ac1;
+}
+
+.token.punctuation {
+    color: #ffbc58;
+}
+
+.token.function {
+    color: #57c7ff;
+}
+
+.token.keyword {
+    color: #ff5c57;
+}
+
+.token.comment {
+    color: #4d4e4f;
+    font-style: italic;
+}
+
+.token.template-string * {
+    color: #ffffff;
+}
+
+.token.template-string .token.string,
+.token.template-string .token.interpolation-punctuation.punctuation {
+    color: #5af78e;
+}
+/* Syntax Highlighting Styles | END */
+
 @tailwind utilities;
