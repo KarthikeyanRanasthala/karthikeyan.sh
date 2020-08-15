@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -7,6 +5,10 @@ const links = [
   {
     title: 'Home',
     href: '/',
+  },
+  {
+    title: 'Blog',
+    href: '/blog',
   },
 ];
 
