@@ -5,6 +5,8 @@ import 'src/styles/index.css';
 import NavBar from 'src/components/common/NavBar';
 import SocialLinks from 'src/components/common/SocialLinks';
 
+import 'src/utils/firebase';
+
 const CustomApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
