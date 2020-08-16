@@ -7,7 +7,7 @@ const BlogPostCard: React.FC<PostCardProps> = (props) => {
   return (
     <li>
       <Link as={`/blog/${props.slug}`} href="/blog/[slug]">
-        <a className="flex flex-row-reverse mb-6 px-1 md:px-8 py-2 border-2 border-dashed border-primary-dark hover:border-green-600">
+        <a className="flex justify-end flex-row-reverse mb-6 px-1 md:px-8 py-2 border-2 border-dashed border-primary-dark hover:border-green-600">
           <div className="pl-4 flex flex-col justify-center">
             <p className="leading-10 mb-2 md:leading-8 md:mb-4 font-semibold text-3xl">
               {props.title}
