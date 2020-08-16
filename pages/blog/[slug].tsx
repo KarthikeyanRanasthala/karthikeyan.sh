@@ -28,8 +28,27 @@ const BlogPost: React.FC<PostProps> = ({ mdxSource, frontMatter }) => {
           }
           .content :global(h3),
           .content :global(h4),
-          .content :global(p) {
+          .content :global(p),
+          .content :global(ol),
+          .content :global(ul) {
             @apply mb-6;
+          }
+          .content :global(p),
+          .content :global(li) {
+            @apply leading-7;
+          }
+          .content :global(a) {
+            @apply text-green-500 no-underline;
+          }
+          .content :global(a:hover) {
+            @apply underline;
+            text-decoration-style: dashed;
+          }
+          .content :global(ol) {
+            @apply list-decimal list-inside;
+          }
+          .content :global(ul) {
+            @apply list-disc list-inside;
           }
         `}
       </style>
