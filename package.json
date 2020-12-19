@@ -25,7 +25,7 @@
     "dayjs": "1.8.33",
     "firebase": "7.18.0",
     "next": "9.5.2",
-    "next-mdx-remote": "0.6.0",
+    "next-mdx-remote": "1.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-icons": "3.10.0"
