@@ -1,8 +1,5 @@
 declare type PostProps = {
-  mdxSource: {
-    source: string;
-    renderedOutput: string;
-  };
+  renderedOutput: string;
   frontMatter: {
     title: string;
     date: string;

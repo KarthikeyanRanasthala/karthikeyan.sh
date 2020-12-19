@@ -2,7 +2,6 @@ import fs from 'fs';
 import { join } from 'path';
 
 import renderToString from 'next-mdx-remote/render-to-string';
-import hydrate from 'next-mdx-remote/hydrate';
 
 import matter from 'gray-matter';
 
@@ -17,8 +16,7 @@ import mongo from 'src/utils/mongo';
 
 import rehypePrism from '@mapbox/rehype-prism';
 
-const BlogPost: React.FC<PostProps> = ({ mdxSource, frontMatter }) => {
-  const content = hydrate(mdxSource, {});
+const BlogPost: React.FC<PostProps> = ({ renderedOutput, frontMatter }) => {
   return (
     <>
       <style jsx>
@@ -66,7 +64,12 @@ const BlogPost: React.FC<PostProps> = ({ mdxSource, frontMatter }) => {
         <p className="text-gray-400 border-l-4 border-green-500 pl-3 mb-8">
           {dayjs(frontMatter.date).format('dddd, DD MMMM YYYY')}
         </p>
-        <section className="content">{content}</section>
+        <section
+          className="content"
+          dangerouslySetInnerHTML={{
+            __html: renderedOutput,
+          }}
+        />
       </article>
     </>
   );
@@ -80,7 +83,7 @@ export const getStaticProps: GetStaticProps = async (
     'utf8'
   );
   const { content, data: frontMatter } = matter(fileContents);
-  const mdxSource = await renderToString(
+  const { renderedOutput } = await renderToString(
     content,
     {},
     {
@@ -88,7 +91,7 @@ export const getStaticProps: GetStaticProps = async (
     }
   );
 
-  return { props: { mdxSource, frontMatter } };
+  return { props: { renderedOutput, frontMatter } };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
