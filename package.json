@@ -4,13 +4,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "type-check": "tsc",
     "lint": "eslint .",
     "prettify": "prettier --write **/*.{ts,tsx,json}",
     "handle-posts": "rimraf dist && ncc build ./scripts/handlePosts.ts && node ./dist/index.js",
     "prebuild": "npm run handle-posts"
   },
+  "cacheDirectories": [
+    ".next/cache"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KarthikeyanRanasthala/karthikeyan.sh.git"
