@@ -10,7 +10,7 @@
     "prebuild": "npm run handle-posts",
     "build": "next build",
     "start": "next start",
-    "start:heroku": "pm2 start npm --name 'karthikeyan-sh' -- start -p $PORT"
+    "start:heroku": "next start -p $PORT"
   },
   "cacheDirectories": [
     ".next/cache"
@@ -39,7 +39,6 @@
     "nanoid": "3.1.21",
     "next": "^10.0.3",
     "next-mdx-remote": "^1.0.1",
-    "pm2": "4.5.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^3.10.0",
