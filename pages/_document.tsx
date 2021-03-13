@@ -25,12 +25,14 @@ class CustomDocument extends Document<DocumentProps & { nonce: string }> {
 
     let contentSecurityPolicy = '';
     if (process.env.NODE_ENV === 'production') {
-      contentSecurityPolicy = `default-src 'self'; style-src 'nonce-${nonce}'; object-src 'none'; base-uri 'none';`;
+      contentSecurityPolicy = `default-src 'self'; style-src 'nonce-${nonce}'; script-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; form-action 'none';`;
     } else {
       contentSecurityPolicy = `default-src 'self'; style-src 'unsafe-inline'; script-src 'self' 'unsafe-eval';`;
     }
 
     ctx.res?.setHeader('Content-Security-Policy', contentSecurityPolicy);
+    ctx.res?.setHeader('X-Content-Type-Options', 'nosniff');
+    ctx.res?.setHeader('X-Frame-Options', 'DENY');
 
     return { styles, html, head, nonce };
   }
