@@ -25,6 +25,7 @@ class CustomHead extends Head {
               'utf-8'
             ),
           }}
+          nonce={this.props.nonce}
         />
       ));
   };
