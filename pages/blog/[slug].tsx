@@ -1,20 +1,11 @@
-import fs from 'fs';
-import { join } from 'path';
-
-import renderToString from 'next-mdx-remote/render-to-string';
-
-import matter from 'gray-matter';
-
-import Head from 'next/head';
-
-import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from 'next';
-
-import dayjs from 'dayjs';
-
-import PostSchema from 'src/models/PostSchema';
-import mongo from 'src/utils/mongo';
-
 import rehypePrism from '@mapbox/rehype-prism';
+import dayjs from 'dayjs';
+import fs from 'fs';
+import matter from 'gray-matter';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import renderToString from 'next-mdx-remote/render-to-string';
+import Head from 'next/head';
+import { join } from 'path';
 
 const BlogPost: React.FC<PostProps> = ({ renderedOutput, frontMatter }) => {
   return (
@@ -75,8 +66,8 @@ const BlogPost: React.FC<PostProps> = ({ renderedOutput, frontMatter }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
 ) => {
   const fileContents = fs.readFileSync(
     join(process.cwd(), 'posts', `${context.params?.slug}.mdx`),
@@ -92,26 +83,6 @@ export const getStaticProps: GetStaticProps = async (
   );
 
   return { props: { renderedOutput, frontMatter } };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  await mongo();
-
-  const posts: PostCardProps[] = JSON.parse(
-    JSON.stringify(
-      await PostSchema.find({ isPublished: true }).sort({ id: -1 }).lean()
-    )
-  );
-  return {
-    paths: posts.map((post) => {
-      return {
-        params: {
-          slug: post.slug,
-        },
-      };
-    }),
-    fallback: false,
-  };
 };
 
 export default BlogPost;

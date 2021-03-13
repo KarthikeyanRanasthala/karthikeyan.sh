@@ -1,10 +1,8 @@
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-
-import { GetStaticProps } from 'next';
-
+import PostsList from 'src/components/common/PostsList';
 import Introduction from 'src/components/indexPage/Introduction';
 import Timeline from 'src/components/indexPage/Timeline';
-import PostsList from 'src/components/common/PostsList';
 import PostSchema from 'src/models/PostSchema';
 import mongo from 'src/utils/mongo';
 
@@ -27,7 +25,7 @@ const IndexPage: React.FC<IndexPageProps> = (props) => (
   </>
 );
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   await mongo();
 
   const posts: PostCardProps[] = JSON.parse(
