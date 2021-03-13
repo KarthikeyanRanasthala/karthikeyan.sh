@@ -4,10 +4,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "node server.js",
     "type-check": "tsc",
     "lint": "eslint .",
-    "prettify": "prettier --write **/*.{ts,tsx,json}",
+    "prettify": "prettier --write **/*.{js,ts,tsx,json}",
     "handle-posts": "rimraf dist && ncc build ./scripts/handlePosts.ts && node ./dist/index.js"
   },
   "cacheDirectories": [
@@ -30,6 +30,7 @@
   "dependencies": {
     "@mapbox/rehype-prism": "0.6.0",
     "dayjs": "^1.8.33",
+    "express": "4.17.1",
     "firebase": "^7.18.0",
     "gray-matter": "4.0.2",
     "mongoose": "5.11.8",
@@ -68,7 +69,7 @@
     }
   },
   "lint-staged": {
-    "*.{ts,tsx,json}": [
+    "*.{js,ts,tsx,json}": [
       "npm run lint",
       "npm run prettify"
     ]
