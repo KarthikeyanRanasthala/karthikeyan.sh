@@ -10,7 +10,7 @@
     "prebuild": "npm run handle-posts",
     "build": "next build",
     "start": "next start",
-    "start:heroku": "pm2 start -i max --name 'karthikeyan-sh' -- run start -p $PORT"
+    "start:heroku": "pm2 start -i max --name 'karthikeyan-sh' -- start -p $PORT"
   },
   "cacheDirectories": [
     ".next/cache"
