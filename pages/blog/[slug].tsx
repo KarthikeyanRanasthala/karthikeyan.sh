@@ -6,6 +6,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import renderToString from 'next-mdx-remote/render-to-string';
 import Head from 'next/head';
 import { join } from 'path';
+import cache from 'src/utils/cache';
 
 const BlogPost: React.FC<PostProps> = ({ renderedOutput, frontMatter }) => {
   return (
@@ -69,20 +70,29 @@ const BlogPost: React.FC<PostProps> = ({ renderedOutput, frontMatter }) => {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const fileContents = fs.readFileSync(
-    join(process.cwd(), 'posts', `${context.params?.slug}.mdx`),
-    'utf8'
-  );
-  const { content, data: frontMatter } = matter(fileContents);
-  const { renderedOutput } = await renderToString(
-    content,
-    {},
-    {
-      rehypePlugins: [rehypePrism],
-    }
-  );
+  const slug = context.params?.slug?.toString() || '';
 
-  return { props: { renderedOutput, frontMatter } };
+  const postInCache: PostProps | undefined = cache.get(slug);
+  if (postInCache) {
+    return { props: postInCache };
+  } else {
+    const fileContents = fs.readFileSync(
+      join(process.cwd(), 'posts', `${slug}.mdx`),
+      'utf8'
+    );
+    const { content, data: frontMatter } = matter(fileContents);
+    const { renderedOutput } = await renderToString(
+      content,
+      {},
+      {
+        rehypePlugins: [rehypePrism],
+      }
+    );
+
+    cache.set(slug, { renderedOutput, frontMatter });
+
+    return { props: { renderedOutput, frontMatter } };
+  }
 };
 
 export default BlogPost;

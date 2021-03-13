@@ -4,6 +4,7 @@ import PostsList from 'src/components/common/PostsList';
 import Introduction from 'src/components/indexPage/Introduction';
 import Timeline from 'src/components/indexPage/Timeline';
 import PostSchema from 'src/models/PostSchema';
+import cache from 'src/utils/cache';
 import mongo from 'src/utils/mongo';
 
 const IndexPage: React.FC<IndexPageProps> = (props) => (
@@ -26,17 +27,25 @@ const IndexPage: React.FC<IndexPageProps> = (props) => (
 );
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  await mongo();
+  const recentPostsInCache = cache.get('recentPosts');
+  if (recentPostsInCache) {
+    return { props: { posts: recentPostsInCache } };
+  } else {
+    await mongo();
 
-  const posts: PostCardProps[] = JSON.parse(
-    JSON.stringify(
-      await PostSchema.find({ isPublished: true })
-        .sort({ id: -1 })
-        .limit(3)
-        .lean()
-    )
-  );
-  return { props: { posts } };
+    const recentPosts: PostCardProps[] = JSON.parse(
+      JSON.stringify(
+        await PostSchema.find({ isPublished: true })
+          .sort({ id: -1 })
+          .limit(3)
+          .lean()
+      )
+    );
+
+    cache.set('recentPosts', recentPosts);
+
+    return { props: { posts: recentPosts } };
+  }
 };
 
 export default IndexPage;
