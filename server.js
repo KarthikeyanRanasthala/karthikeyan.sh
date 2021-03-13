@@ -12,11 +12,11 @@ app.prepare().then(() => {
   const server = express();
 
   server.get('*', (req, res) => {
-    if (req.headers['x-forwarded-proto'] === 'https') {
-      handle(req, res);
-    } else {
-      res.redirect(301, `https://${req.hostname}${req.url}`);
-    }
+    // if (req.headers['x-forwarded-proto'] === 'https') {
+    handle(req, res);
+    // } else {
+    // res.redirect(301, `https://${req.hostname}${req.url}`);
+    // }
   });
 
   server.listen(port, (err) => {
