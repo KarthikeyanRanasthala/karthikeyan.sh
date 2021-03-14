@@ -7,7 +7,6 @@
     "prettify": "prettier --write **/*.{js,ts,tsx,json}",
     "handle-posts": "rimraf dist && ncc build ./scripts/handlePosts.ts && node ./dist/index.js",
     "dev": "next dev",
-    "prebuild": "npm run handle-posts",
     "build": "next build",
     "start": "next start",
     "start:heroku": "next start -p $PORT"
