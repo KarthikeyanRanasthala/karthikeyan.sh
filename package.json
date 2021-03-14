@@ -2,14 +2,14 @@
   "name": "karthikeyan.sh",
   "version": "1.1.0",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
     "type-check": "tsc",
     "lint": "eslint .",
-    "prettify": "prettier --write **/*.{ts,tsx,json}",
+    "prettify": "prettier --write **/*.{js,ts,tsx,json}",
     "handle-posts": "rimraf dist && ncc build ./scripts/handlePosts.ts && node ./dist/index.js",
-    "prebuild": "npm run handle-posts"
+    "dev": "next dev",
+    "prebuild": "npm run handle-posts",
+    "build": "next build",
+    "start": "next start"
   },
   "repository": {
     "type": "git",
@@ -22,16 +22,19 @@
   },
   "homepage": "https://github.com/KarthikeyanRanasthala/karthikeyan.sh#readme",
   "dependencies": {
+    "@mapbox/rehype-prism": "0.6.0",
     "dayjs": "^1.8.33",
     "firebase": "^7.18.0",
+    "gray-matter": "4.0.2",
+    "mongoose": "5.12.0",
     "next": "^10.0.3",
     "next-mdx-remote": "^1.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-icons": "^3.10.0"
+    "react-icons": "^3.10.0",
+    "tailwindcss": "2.0.3"
   },
   "devDependencies": {
-    "@mapbox/rehype-prism": "^0.5.0",
     "@types/mongoose": "^5.7.36",
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.46",
@@ -43,15 +46,12 @@
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-react": "^7.20.6",
-    "gray-matter": "^4.0.2",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
-    "mongoose": "^5.11.8",
     "postcss": "^8.2.1",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "styled-jsx-plugin-postcss": "^4.0.0",
-    "tailwindcss": "^2.0.2",
     "typescript": "^3.9.7"
   },
   "husky": {
