@@ -8,6 +8,8 @@ import PostsList from 'src/components/common/PostsList';
 import PostSchema from 'src/models/PostSchema';
 import mongo from 'src/utils/mongo';
 
+import cache from 'src/utils/cache';
+
 const IndexPage: React.FC<IndexPageProps> = (props) => (
   <>
     <Head>
@@ -28,6 +30,12 @@ const IndexPage: React.FC<IndexPageProps> = (props) => (
 );
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  const cachedContent: IndexPageProps | undefined = cache.get('recent-posts');
+
+  if (cachedContent) {
+    return { props: cachedContent };
+  }
+
   await mongo();
 
   const posts: PostCardProps[] = JSON.parse(
@@ -38,6 +46,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
         .lean()
     )
   );
+
+  cache.set('recent-posts', { posts });
+
   return { props: { posts } };
 };
 

@@ -13,6 +13,8 @@ import dayjs from 'dayjs';
 
 import rehypePrism from '@mapbox/rehype-prism';
 
+import cache from 'src/utils/cache';
+
 const BlogPost: React.FC<PostProps> = ({ renderedOutput, frontMatter }) => {
   return (
     <>
@@ -75,20 +77,42 @@ const BlogPost: React.FC<PostProps> = ({ renderedOutput, frontMatter }) => {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const fileContents = fs.readFileSync(
-    join(process.cwd(), 'posts', `${context.params?.slug}.mdx`),
-    'utf8'
-  );
-  const { content, data: frontMatter } = matter(fileContents);
-  const { renderedOutput } = await renderToString(
-    content,
-    {},
-    {
-      rehypePlugins: [rehypePrism],
-    }
-  );
+  const slug = context.params?.slug;
 
-  return { props: { renderedOutput, frontMatter } };
+  if (typeof slug === 'string') {
+    const cachedContent: PostProps | undefined = cache.get(`post-${slug}`);
+
+    if (cachedContent) {
+      return { props: cachedContent };
+    }
+
+    try {
+      const fileContents = fs.readFileSync(
+        join(process.cwd(), 'posts', `${slug}.mdx`),
+        'utf8'
+      );
+      const { content, data: frontMatter } = matter(fileContents);
+      const { renderedOutput } = await renderToString(
+        content,
+        {},
+        {
+          rehypePlugins: [rehypePrism],
+        }
+      );
+
+      cache.set(`post-${slug}`, { renderedOutput, frontMatter });
+
+      return { props: { renderedOutput, frontMatter } };
+    } catch (error) {
+      return {
+        notFound: true,
+      };
+    }
+  }
+
+  return {
+    notFound: true,
+  };
 };
 
 export default BlogPost;

@@ -6,6 +6,8 @@ import PostSchema from 'src/models/PostSchema';
 import mongo from 'src/utils/mongo';
 import Head from 'next/head';
 
+import cache from 'src/utils/cache';
+
 const BlogPage: React.FC<BlogPageProps> = (props) => (
   <>
     <Head>
@@ -19,6 +21,12 @@ const BlogPage: React.FC<BlogPageProps> = (props) => (
 );
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  const cachedContent: BlogPageProps | undefined = cache.get('all-posts');
+
+  if (cachedContent) {
+    return { props: cachedContent };
+  }
+
   await mongo();
 
   const posts: PostCardProps[] = JSON.parse(
@@ -26,6 +34,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
       await PostSchema.find({ isPublished: true }).sort({ id: -1 }).lean()
     )
   );
+
+  cache.set('all-posts', { posts });
+
   return { props: { posts } };
 };
 
