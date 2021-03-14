@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 
 import Introduction from 'src/components/indexPage/Introduction';
 import Timeline from 'src/components/indexPage/Timeline';
@@ -27,7 +27,7 @@ const IndexPage: React.FC<IndexPageProps> = (props) => (
   </>
 );
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   await mongo();
 
   const posts: PostCardProps[] = JSON.parse(

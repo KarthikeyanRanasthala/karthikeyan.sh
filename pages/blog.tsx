@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 
 import PostsList from 'src/components/common/PostsList';
 
@@ -18,7 +18,7 @@ const BlogPage: React.FC<BlogPageProps> = (props) => (
   </>
 );
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   await mongo();
 
   const posts: PostCardProps[] = JSON.parse(
