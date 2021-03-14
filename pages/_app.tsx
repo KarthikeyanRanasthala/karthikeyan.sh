@@ -7,7 +7,7 @@ import 'src/styles/index.css';
 import NavBar from 'src/components/common/NavBar';
 import SocialLinks from 'src/components/common/SocialLinks';
 
-import 'src/utils/firebase';
+// import 'src/utils/firebase';
 
 class CustomApp extends React.Component<AppProps> {
   static getInitialProps = (): unknown => ({});
