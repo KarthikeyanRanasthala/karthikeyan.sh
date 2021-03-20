@@ -28,7 +28,7 @@ class CustomDocument extends Document<DocumentProps & { nonce: string }> {
 
     let contentSecurityPolicy = '';
     if (process.env.NODE_ENV === 'production') {
-      contentSecurityPolicy = `default-src 'self'; style-src 'nonce-${nonce}'; script-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; form-action 'none';`;
+      contentSecurityPolicy = `default-src 'self'; style-src 'nonce-${nonce}'; script-src 'self' 'nonce-${nonce}' 'strict-dynamic'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; form-action 'none';`;
     } else {
       contentSecurityPolicy = `default-src 'self'; style-src 'unsafe-inline'; script-src 'self' 'unsafe-eval';`;
     }
@@ -52,7 +52,7 @@ class CustomDocument extends Document<DocumentProps & { nonce: string }> {
         </CustomHead>
         <body className="bg-primary-dark text-white">
           <Main />
-          <NextScript />
+          <NextScript nonce={this.props.nonce} />
         </body>
       </Html>
     );
