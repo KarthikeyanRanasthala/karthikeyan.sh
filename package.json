@@ -30,6 +30,7 @@
   "homepage": "https://github.com/KarthikeyanRanasthala/karthikeyan.sh#readme",
   "dependencies": {
     "@mapbox/rehype-prism": "0.6.0",
+    "content-security-policy-builder": "2.1.0",
     "dayjs": "^1.8.33",
     "firebase": "^7.18.0",
     "gray-matter": "4.0.2",
